@@ -31,6 +31,8 @@ axis xy
 axis equal
 colorbar
 title 'pdf'
+xlabel('k_1');
+ylabel('k_2');
 
 %%// Plot cdf
 %figure
