@@ -1,7 +1,4 @@
-function empirical_pdf_plot(X,Y)
-
-x_axis = 0:.01:1; %// Define edges of bins for x axis. Column vector
-y_axis = 0:.01:1; %// Same for y axis
+function empirical_pdf_plot(X,Y,x_axis,y_axis)
 
 %// Compute corners of 2D-bins:
 [x_mesh_upper,y_mesh_upper] = meshgrid(x_axis(2:end),y_axis(2:end));
