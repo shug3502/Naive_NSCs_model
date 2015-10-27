@@ -4,14 +4,14 @@ function D = simulate_data(star_theta)
 %created 21 October 2015
 %simulate data from the model using the gilespie SSA
 
-data_time_points = [0:4:12]; %the times at which we will collect/simulate data
+data_time_points = [12]; %the times at which we will collect/simulate data
 D = zeros(1,numel(data_time_points));
 
 %initialise 
 time = 0;
-b=90;
-c=100;
-d=100;
+b=1;
+c=6;
+d=28;
 
 for k=1:numel(data_time_points)
 while time<data_time_points(k)
@@ -31,5 +31,5 @@ while time<data_time_points(k)
     end
 
 end
-D(:,k) = [b+c+d]; %c+d corresponds to data where we can distinguish only between neuroblasts and other cells
+D(:,k) = [c+d]; %c+d corresponds to data where we can distinguish only between neuroblasts and other cells
 end
