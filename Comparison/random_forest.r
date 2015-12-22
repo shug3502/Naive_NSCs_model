@@ -46,4 +46,6 @@ for (j in 1:m){
 plot(z[,j], lm.predict,
     main="RF regression predictions vs actual",
     xlab="Actual")
-#NB currently the 7th piece of info is spurious, so should not get a decent (predictive) model for that 
+#NB currently the 7th piece of info is spurious, so should not get a decent (predictive) model for that
+
+}
