@@ -36,7 +36,7 @@ switch inf
 	case {'RF','random_forest'}
 	% use a random forest
 	%call via an R script
-	system('Rscript ./linear_regression.r');
+	system('Rscript ./random_forest.r');
 
 	case {'NN','neural_network'};
 	% use neural network
