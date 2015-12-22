@@ -36,6 +36,7 @@ switch inf
 	case {'RF','random_forest'}
 	% use a random forest
 	%call via an R script
+	%currently also only on %10^4 of the data due to time to train RF
 	system('Rscript ./random_forest.r');
 
 	case {'NN','neural_network'};

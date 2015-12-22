@@ -24,6 +24,7 @@ responsenames <- paste("V", 1:m, sep='')
 varnames <- paste("V", (m+1):(sz+m), sep='') 
 
 for (y in responsenames){
+	print(y)
   form <- formula(paste(y, "~ ."))  #, varnames))  # varnames))
   models[[y]] <- randomForest(form, data=train, ntree=20)
   }
@@ -32,10 +33,14 @@ z <- test
 for (j in 1:m){
   lm.predict <- predict(models[[responsenames[j]]], z)
 
-  #mse
-  print(sum((lm.predict - z[,j])^2)) 
+  #loss based on mse
+  loss <- mean((lm.predict/z[,j] - 1)^2) 
+  line=paste("RF: ", loss)
+  print(line)
+  write(line,file="loss.csv",append=TRUE)
+
   #Rsquared
-  r2 <- rSquared(z[,j], z[,j] - predict(models[[responsenames[j]]], z))
+  # r2 <- rSquared(z[,j], z[,j] - predict(models[[responsenames[j]]], z))
   # print(r2)
  
 plot(z[,j], lm.predict,

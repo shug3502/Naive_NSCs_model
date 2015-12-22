@@ -18,7 +18,6 @@ responsenames <- paste("V", 1:m, sep='')
 varnames <- paste("V", (m+1):(sz+m), sep='') 
 
 for (y in responsenames){
-  print(y)
   form <- formula(paste(y, "~ .")) #, varnames))  # varnames))
   models[[y]] <- lm(form, data=train) 
   }
@@ -27,7 +26,11 @@ z <- test
 for (j in 1:m){
 lm.predict <- predict(models[[responsenames[j]]],z)
  
-print(mean((lm.predict - z[,j])^2)) 
+loss <- mean((lm.predict/z[,j] - 1)^2) 
+
+line=paste("LiR: ", loss)
+print(line)
+write(line,file="loss.csv",append=TRUE)
  
 plot(z[,j], lm.predict,
     main="Linear regression predictions vs actual",
