@@ -16,7 +16,7 @@ params.filename = 'train.csv';
 %write params to a file for use by R
 f1=fopen('params.csv','w');
 fprintf(f1,'%s, %s, %s, %s \n', 'size_theta', 'size_ss', 'prop', 'filename');
-fprintf(f1,'%d, %d, %f, %s \n', params.size_theta, params.size_ss, params.prop, params.filename);
+fprintf(f1,'%d,%d,%f,%s\n', params.size_theta, params.size_ss, params.prop, params.filename);
 fclose('all');
 
 seed = 197; randn('seed',seed), rand('seed',seed);

@@ -1,12 +1,11 @@
 # read parameter inputs from file
-pp <- read.csv('params.csv',header=TRUE)
+pp <- read.csv('params.csv',header=TRUE, stringsAsFactors=FALSE)
 
 # import data from csv file
-x <- read.csv(pp$filename[1],header=FALSE)
+x <- read.csv(pp$filename,header=FALSE)
 n <- nrow(x)
-prop <- pp$prop[1]
+prop <- pp$prop
 train <- x[1:(prop*n),]
-print(nrow(train))
 test <- x[(prop*n+1):n,]
 
 sz <- pp$size_ss # size of summary statistics
