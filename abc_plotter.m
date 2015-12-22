@@ -11,3 +11,5 @@ end
 empirical_pdf_plot(qt(1,:),qt(2,:),linspace(0,R,101),linspace(0,R,101));
 hold on 
 plot(real_theta(1),real_theta(2),'mx','markerSize',10)
+
+
