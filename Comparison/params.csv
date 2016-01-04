@@ -1,2 +1,2 @@
-size_theta, size_ss, prop, filename 
-2,20,0.800000,train.csv
+size_theta, size_ss, prop, ntree, priormax, layers, filename 
+2,20,0.800000,40,2.000000,40,train.csv

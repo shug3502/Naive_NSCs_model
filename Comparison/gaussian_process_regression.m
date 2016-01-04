@@ -1,4 +1,4 @@
-function gaussian_process_regression(data,params)
+function my_loss = gaussian_process_regression(data,params)
 % demonstrate usage of regression
 %
 % Copyright (c) by Carl Edward Rasmussen and Hannes Nickisch 2013-10-16.
@@ -7,12 +7,11 @@ function gaussian_process_regression(data,params)
 %% SAY WHICH CODE WE WISH TO EXERCISE
 id = [1,4];
 
-%seed = 197; randn('seed',seed), rand('seed',seed)
-
-
 %data = csvread('train2.csv');
 prop = params.prop;
 ntr = size(data,1)*prop; nte = size(data,1)*(1-prop);                        % number of training and test points
+
+my_loss = zeros(params.size_theta,1);
 for response_ind = 1:params.size_theta
 
 xtr = data(1:ntr,params.size_theta:end);
@@ -23,7 +22,7 @@ yte = data((1+ntr):(ntr+nte),response_ind);
 
 cov = {@covSEiso}; sf = 1; ell = 0.4;                             % setup the GP
 hyp0.cov  = log([ell;sf]);
-mean = {@meanSum,{@meanLinear,@meanConst}}; a = 0; b = 1;       % m(x) = a*x+b
+my_mean = {@meanSum,{@meanLinear,@meanConst}}; a = 0; b = 1;       % m(x) = a*x+b
 hyp0.mean = [a*zeros(1+params.size_ss,1);b];
 
 lik_list = {'likGauss','likLaplace','likSech2','likT'};   % possible likelihoods
@@ -46,14 +45,16 @@ for i=1:size(id,1)
   if Ncg==0
     hyp = hyp0;
   else
-    hyp = minimize(hyp0,'gp', -Ncg, inf, mean, cov, lik, xtr, ytr); % opt hypers
+    hyp = minimize(hyp0,'gp', -Ncg, inf, my_mean, cov, lik, xtr, ytr); % opt hypers
   end
-  [ymu{i+1}, ys2{i+1}] = gp(hyp, inf, mean, cov, lik, xtr, ytr, xte);  % predict
-  [nlZ(i+1)] = gp(hyp, inf, mean, cov, lik, xtr, ytr);
+  [ymu{i+1}, ys2{i+1}] = gp(hyp, inf, my_mean, cov, lik, xtr, ytr, xte);  % predict
+  [nlZ(i+1)] = gp(hyp, inf, my_mean, cov, lik, xtr, ytr);
 end
 
 figure, hold on
 plot(ymu{1},ymu{2},'bo'),xlabel('y actual'),ylabel('y predicted');
 plot(ymu{1},ymu{1},'k--');
 print(sprintf('gpregress%d',response_ind),'-dpng');
+my_loss(response_ind) = mean((ymu{2}./ymu{1} - 1).^2);
 end
+

@@ -9,8 +9,9 @@ pp <- read.csv('params.csv',header=TRUE, stringsAsFactors=FALSE)
 
 # import data from csv file
 x <- read.csv(pp$filename,header=FALSE)
-n <- nrow(x)/10
+n <- nrow(x)
 prop <- pp$prop
+n.tree <- pp$ntree
 train <- x[1:(prop*n),]
 test <- x[(prop*n+1):n,]
 
@@ -26,7 +27,7 @@ varnames <- paste("V", (m+1):(sz+m), sep='')
 for (y in responsenames){
 	print(y)
   form <- formula(paste(y, "~ ."))  #, varnames))  # varnames))
-  models[[y]] <- randomForest(form, data=train, ntree=20)
+  models[[y]] <- randomForest(form, data=train, ntree=n.tree)
   }
 
 z <- test
